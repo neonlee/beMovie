@@ -67,19 +67,4 @@ class DatabaseHelper {
     return Sqflite.firstIntValue(
         await db.rawQuery('SELECT COUNT(*) FROM $table'));
   }
-
-  // Assumimos aqui que a coluna id no mapa está definida. Os outros
-  // valores das colunas serão usados para atualizar a linha.
-  Future<int> update(Map<String, dynamic> row) async {
-    Database db = await instance.database;
-    int id = row[columnId];
-    return await db.update(table, row, where: '$columnId = ?', whereArgs: [id]);
-  }
-
-  // Exclui a linha especificada pelo id. O número de linhas afetadas é
-  // retornada. Isso deve ser igual a 1, contanto que a linha exista.
-  Future<int> delete(int id) async {
-    Database db = await instance.database;
-    return await db.delete(table, where: '$columnId = ?', whereArgs: [id]);
-  }
 }
